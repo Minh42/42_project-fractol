@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 16:05:27 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/28 14:45:35 by minh             ###   ########.fr       */
+/*   Updated: 2018/02/28 19:12:08 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void			ft_putstr_fd(const char *s, int fd);
 void			ft_putendl_fd(const char *s, int fd);
 void			ft_putnbr_fd(int nb, int fd);
 int				ft_isnegative(int c);
-int				ft_abs(int nbr);
+double			ft_abs(double nbr);
 void			ft_swap(int *a, int *b);
 int				ft_sqrt(int nb);
 float			ft_power(int nb, int exp);

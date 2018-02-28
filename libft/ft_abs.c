@@ -6,13 +6,13 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/24 19:04:38 by minh              #+#    #+#             */
-/*   Updated: 2018/02/28 14:45:21 by minh             ###   ########.fr       */
+/*   Updated: 2018/02/28 19:11:44 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_abs(int nbr)
+double	ft_abs(double nbr)
 {
 	if (nbr < 0)
 	{

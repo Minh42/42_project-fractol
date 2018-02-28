@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 16:07:07 by mpham             #+#    #+#             */
-/*   Updated: 2018/02/28 17:48:02 by minh             ###   ########.fr       */
+/*   Updated: 2018/02/28 19:14:28 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,18 @@
 # define CRE_UP 2
 # define CRE_DOWN 0
 
-// typedef union   u_color;
-// {
-//   unsigned int  number;
-//   unsigned char channels[4];
-// };
-
 typedef	struct		s_rgb
 {
-	float			r; // ∈ [0, 255]
-	float			g; // ∈ [0, 255]
-	float			b; // ∈ [0, 255]
+	float			r;
+	float			g;
+	float			b;
 }					t_rgb;
 
 typedef	struct		s_hsv
 {
-	float			h; // ∈ [0, 360]
-	float			s; // ∈ [0, 1]
-	float			v; // ∈ [0, 1]
+	float			h;
+	float			s;
+	float			v;
 }					t_hsv;
 
 typedef	struct		s_img
@@ -79,13 +73,9 @@ typedef struct      s_mdb
     double          zoom;
     double          movex;
     double          movey;
-	double			current_time;
-	double			old_time;
-	double			frametime;
  	int				max_iter;
 	t_rgb			rgb_color;	    
 }                   t_mdb;
-
 
 typedef struct      s_julia
 {
@@ -98,41 +88,28 @@ typedef struct      s_julia
     double          zoom;
     double          movex;
     double          movey;
-	double			current_time;
-	double			old_time;
-	double			frametime;
 	int				max_iter;
 	t_rgb			rgb_color;
 }                   t_julia;
-
-// typedef struct      s_newton
-// {
-    
-// }                   t_newton;
 
 typedef	struct		s_env
 {
 	void			*mlx;
 	void			*win;
 	t_img			img;
-	int				offset_x;
-	int				offset_y;
-	int				zoom;
-	int				scale_z;
-	int				angle_x;
-	int				angle_y;
-	int				angle_z;
-	int				color_r;
-	int				color_g;
-	int				color_b;
 	int				fract;
-    t_mdb           *mdb;
+	double			current_time;
+	double			old_time;
+	double			frametime;
+    t_mdb           mdb;
     t_julia         julia;
     // t_newton        *newton;
 }					t_env;
 
 void				ft_create_image(t_env *e);
 void    			init_julia_set(t_env *e);
+void    			init_mandelbrot(t_env *e);
+void    			init_burnship(t_env *e);
 void                ft_draw_julia(t_env *e);
 void    			ft_draw_mandelbrot(t_env *e);
 void 				ft_draw_burnship(t_env *e);

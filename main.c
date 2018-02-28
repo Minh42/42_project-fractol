@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 16:30:47 by minh              #+#    #+#             */
-/*   Updated: 2018/02/28 17:39:27 by minh             ###   ########.fr       */
+/*   Updated: 2018/02/28 19:14:05 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,22 @@ void		ft_create_image(t_env *e)
 	e->img.img_ptr = mlx_new_image(e->mlx, WIN_WIDTH, WIN_HEIGHT);
 	e->img.data = (int *)mlx_get_data_addr(e->img.img_ptr, &e->img.bpp,
 	&e->img.sizeline, &e->img.endian);
-	e->julia.current_time = time(NULL);
+	e->current_time = time(NULL);
 	if (e->fract == 0)
+	{
+		init_mandelbrot(e);
 		ft_draw_mandelbrot(e);
+	}
 	if (e->fract == 1)
 	{
 		init_julia_set(e);
 		ft_draw_julia(e);				
 	}
 	if (e->fract == 2)
+	{
+		init_burnship(e);
 		ft_draw_burnship(e);
+	}
 	mlx_put_image_to_window(e->mlx, e->win, e->img.img_ptr, 0, 0);
 }
 
