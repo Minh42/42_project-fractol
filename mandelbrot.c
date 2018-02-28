@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 17:52:47 by minh              #+#    #+#             */
-/*   Updated: 2018/02/20 21:34:45 by minh             ###   ########.fr       */
+/*   Updated: 2018/02/28 14:50:51 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ void    ft_draw_mandelbrot(t_env *e)
             else
             {
             rgb_color = hsv2rgb(ColorHSV(i % 256, 1.0, i < maxIterations));
-            mlx_pixel_put(e->mlx, e->win, x, y, createRGB(rgb_color.r, rgb_color.g, rgb_color.b));                 
+            ft_fill_pixel(e, x, y, createRGB(rgb_color.r, rgb_color.g, rgb_color.b));
+            
+            //mlx_pixel_put(e->mlx, e->win, x, y, createRGB(rgb_color.r, rgb_color.g, rgb_color.b));                 
             }
 
             y++;

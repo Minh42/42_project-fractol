@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 16:31:33 by minh              #+#    #+#             */
-/*   Updated: 2018/02/20 21:29:32 by minh             ###   ########.fr       */
+/*   Updated: 2018/02/28 14:53:46 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void    ft_draw_julia(t_env *e)
                 i++;
             }
             rgb_color = hsv2rgb(ColorHSV(i % 256, 1.0, i < maxIterations));
-            mlx_pixel_put(e->mlx, e->win, x, y, createRGB(rgb_color.r, rgb_color.g, rgb_color.b));  
+            ft_fill_pixel(e, x, y, createRGB(rgb_color.r, rgb_color.g, rgb_color.b));
+            //mlx_pixel_put(e->mlx, e->win, x, y, createRGB(rgb_color.r, rgb_color.g, rgb_color.b));  
             y++;
         }
         x++;

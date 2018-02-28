@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_abs.c                                           :+:      :+:    :+:   */
+/*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/24 19:04:38 by minh              #+#    #+#             */
-/*   Updated: 2018/02/28 14:45:21 by minh             ###   ########.fr       */
+/*   Created: 2018/02/20 21:42:32 by minh              #+#    #+#             */
+/*   Updated: 2018/02/20 21:42:53 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "fractol.h"
 
-int	ft_abs(int nbr)
+int		key_hook(int keycode, t_env *e)
 {
-	if (nbr < 0)
+	if (keycode == EXIT)
 	{
-		return (-nbr);
+		mlx_destroy_image(e->mlx, e->img.img_ptr);
+		exit(EXIT_SUCCESS);
 	}
-	return (nbr);
+	return (0);
 }

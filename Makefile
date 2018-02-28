@@ -6,7 +6,7 @@
 #    By: minh <minh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 12:55:31 by mpham             #+#    #+#              #
-#    Updated: 2018/02/20 21:29:01 by minh             ###   ########.fr        #
+#    Updated: 2018/02/28 14:35:30 by minh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,9 @@ SRC = \
 			main.c \
 			julia.c \
 			mandelbrot.c \
-			color.c
+			burn_ship.c \
+			color.c \
+			events.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 16:07:07 by mpham             #+#    #+#             */
-/*   Updated: 2018/02/20 21:19:49 by minh             ###   ########.fr       */
+/*   Updated: 2018/02/28 14:49:37 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
+
+# define EXIT 53
 
 // typedef union   u_color;
 // {
@@ -49,7 +51,7 @@ typedef	struct		s_hsv
 typedef	struct		s_img
 {
 	void			*img_ptr;
-	char			*data;
+	int				*data;
 	int				sizeline;
 	int				bpp;
 	int				endian;
@@ -100,12 +102,17 @@ typedef	struct		s_env
     // t_newton        *newton;
 }					t_env;
 
+void				ft_create_image(t_env *e);
 void                ft_draw_julia(t_env *e);
 void    			ft_draw_mandelbrot(t_env *e);
+void 				ft_draw_burnship(t_env *e);
 t_hsv 				ColorHSV(float h, float s, float v);
 t_rgb 				ColorRGB(float r, float g, float b);
 t_hsv   			rgb2hsv(t_rgb rgb_color);
 t_rgb   			hsv2rgb(t_hsv hsv_color);
-unsigned long 		createRGB(int r, int g, int b);
+int 				createRGB(int r, int g, int b);
+void				ft_init_img(t_env *e);
+int					key_hook(int keycode, t_env *e);
+void				ft_fill_pixel(t_env *e, int x, int y, int rgb_color);
 
 #endif
