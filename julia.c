@@ -6,23 +6,27 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 16:31:33 by minh              #+#    #+#             */
-/*   Updated: 2018/02/28 14:53:46 by minh             ###   ########.fr       */
+/*   Updated: 2018/02/28 17:39:35 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+void    init_julia_set(t_env *e)
+{
+    e->julia.zoom = 1;
+    e->julia.movex = 0; 
+    e->julia.movey = 0;
+    e->julia.max_iter = 300;
+    e->julia.c_re = -0.7;
+    e->julia.c_im = 0.27015;  
+}
+
 void    ft_draw_julia(t_env *e)
 {
-    int i, x, y;
-    double cRe, cIm;
-    double newRe, newIm, oldRe, oldIm;
-    double zoom = 1, moveX = 0, moveY = 0;
-    int maxIterations = 300;
-    t_rgb   rgb_color;
-
-    cRe = -0.7;
-    cIm = 0.27015;
+    int     i;
+    int     x;
+    int     y;
     
     x = 0;
     while (x < WIN_WIDTH)
@@ -30,22 +34,21 @@ void    ft_draw_julia(t_env *e)
         y = 0;
         while (y < WIN_HEIGHT)
         {
-            newRe = 1.5 * (x - WIN_WIDTH / 2) / (0.5 * zoom * WIN_WIDTH) + moveX;
-            newIm = (y - WIN_HEIGHT / 2) / (0.5 * zoom * WIN_HEIGHT) + moveY;
+            e->julia.new_re = 1.5 * (x - WIN_WIDTH / 2) / (0.5 * e->julia.zoom * WIN_WIDTH) + e->julia.movex;
+            e->julia.new_im = (y - WIN_HEIGHT / 2) / (0.5 * e->julia.zoom * WIN_HEIGHT) + e->julia.movey;
             i = 0;
-            while (i < maxIterations)   
+            while (i < e->julia.max_iter)   
             {
-                oldRe = newRe;
-                oldIm = newIm;
-                newRe = oldRe * oldRe - oldIm * oldIm + cRe;
-                newIm = 2 * oldRe * oldIm + cIm;
-                if ((newRe * newRe + newIm * newIm) > 4)
+                e->julia.old_re = e->julia.new_re;
+                e->julia.old_im = e->julia.new_im;
+                e->julia.new_re = e->julia.old_re * e->julia.old_re - e->julia.old_im * e->julia.old_im + e->julia.c_re;
+                e->julia.new_im = 2 * e->julia.old_re * e->julia.old_im + e->julia.c_im;
+                if ((e->julia.new_re * e->julia.new_re + e->julia.new_im * e->julia.new_im) > 4)
                     break ;
                 i++;
             }
-            rgb_color = hsv2rgb(ColorHSV(i % 256, 1.0, i < maxIterations));
-            ft_fill_pixel(e, x, y, createRGB(rgb_color.r, rgb_color.g, rgb_color.b));
-            //mlx_pixel_put(e->mlx, e->win, x, y, createRGB(rgb_color.r, rgb_color.g, rgb_color.b));  
+            e->julia.rgb_color = hsv2rgb(ColorHSV(i % 256, 1.0, i < e->julia.max_iter));
+            ft_fill_pixel(e, x, y, createRGB(e->julia.rgb_color.r, e->julia.rgb_color.g, e->julia.rgb_color.b));
             y++;
         }
         x++;

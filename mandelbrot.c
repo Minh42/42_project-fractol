@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 17:52:47 by minh              #+#    #+#             */
-/*   Updated: 2018/02/28 14:50:51 by minh             ###   ########.fr       */
+/*   Updated: 2018/02/28 15:51:28 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,37 @@
 
 void    ft_draw_mandelbrot(t_env *e)
 {
-    int i, x, y;
-    double pr, pi;
-    double newRe, newIm, oldRe, oldIm;
-    double zoom = 1, moveX = -0.5, moveY = 0;
-    int maxIterations = 300;
-    t_rgb   rgb_color;
+    int     i;
+    int     x;
+    int     y;
+    t_mdb   mdb;
     
+    mdb.zoom = 1;
+    mdb.movex = -0.5;
+    mdb.movey = 0;
+    mdb.max_iter = 300;
     x = 0;
     while (x < WIN_WIDTH)
     {
         y = 0;
         while (y < WIN_HEIGHT)
         {
-            pr = 1.5 * (x - WIN_WIDTH / 2) / (0.5 * zoom * WIN_WIDTH) + moveX;
-            pi = (y - WIN_HEIGHT / 2) / (0.5 * zoom * WIN_HEIGHT) + moveY;
-            newRe = newIm = oldRe = oldIm = 0;
+            mdb.pr = 1.5 * (x - WIN_WIDTH / 2) / (0.5 * mdb.zoom * WIN_WIDTH) + mdb.movex;
+            mdb.pi = (y - WIN_HEIGHT / 2) / (0.5 * mdb.zoom * WIN_HEIGHT) + mdb.movey;
+            mdb.new_re = mdb.new_im = mdb.old_re = mdb.old_im = 0;
             i = 0;
-            while (i < maxIterations)
+            while (i < mdb.max_iter)
             {
-                oldRe = newRe;
-                oldIm = newIm;
-                newRe = oldRe * oldRe - oldIm * oldIm + pr;
-                newIm = 2 * oldRe * oldIm + pi;
-                if ((newRe * newRe + newIm * newIm) > 4)
+                mdb.old_re = mdb.new_re;
+                mdb.old_im = mdb.new_im;
+                mdb.new_re = mdb.old_re * mdb.old_re - mdb.old_im * mdb.old_im + mdb.pr;
+                mdb.new_im = 2 * mdb.old_re * mdb.old_im + mdb.pi;
+                if ((mdb.new_re * mdb.new_re + mdb.new_im * mdb.new_im) > 4)
                     break;
                 i++;
             }
-             if (i == maxIterations)
-                mlx_pixel_put(e->mlx, e->win, x, y, 255255255);
-            else
-            {
-            rgb_color = hsv2rgb(ColorHSV(i % 256, 1.0, i < maxIterations));
-            ft_fill_pixel(e, x, y, createRGB(rgb_color.r, rgb_color.g, rgb_color.b));
-            
-            //mlx_pixel_put(e->mlx, e->win, x, y, createRGB(rgb_color.r, rgb_color.g, rgb_color.b));                 
-            }
-
+            mdb.rgb_color = hsv2rgb(ColorHSV(i % 256, 1.0, i < mdb.max_iter));
+            ft_fill_pixel(e, x, y, createRGB(mdb.rgb_color.r, mdb.rgb_color.g, mdb.rgb_color.b));               
             y++;
         }
         x++;

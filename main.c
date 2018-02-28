@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 16:30:47 by minh              #+#    #+#             */
-/*   Updated: 2018/02/28 15:01:23 by minh             ###   ########.fr       */
+/*   Updated: 2018/02/28 17:39:27 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,14 @@ void		ft_create_image(t_env *e)
 	e->img.img_ptr = mlx_new_image(e->mlx, WIN_WIDTH, WIN_HEIGHT);
 	e->img.data = (int *)mlx_get_data_addr(e->img.img_ptr, &e->img.bpp,
 	&e->img.sizeline, &e->img.endian);
+	e->julia.current_time = time(NULL);
 	if (e->fract == 0)
 		ft_draw_mandelbrot(e);
 	if (e->fract == 1)
-		ft_draw_julia(e);
+	{
+		init_julia_set(e);
+		ft_draw_julia(e);				
+	}
 	if (e->fract == 2)
 		ft_draw_burnship(e);
 	mlx_put_image_to_window(e->mlx, e->win, e->img.img_ptr, 0, 0);
@@ -49,6 +53,30 @@ void	ft_fill_pixel(t_env *e, int x, int y, int rgb_color)
 	if (x >= 0 && y >= 0 && x < WIN_WIDTH && y < WIN_HEIGHT)
 		e->img.data[y * WIN_WIDTH + x] = rgb_color;
 }
+
+// void	ft_print_dashboard(t_env *e)
+// {
+// 		mlx_string_put(e->mlx, e->win, 10, 22, 0x00FFFFFF, "FOV :");
+// 	mlx_string_put(e->mlx, e->win, 70, 22, 0x00FFFFFF, ft_itoa(e->cam->fov));
+	
+// 	mlx_string_put(e->mlx, e->win, 25, 15, 0x00FFFFFF, "Quit = ESC");
+// 	mlx_string_put(e->mlx, e->win, 25, 35, 0x00FFFFFF, "Move = < > ^ v");
+// 	mlx_string_put(e->mlx, e->win, 25, 55, 0x00FFFFFF, "Zoom = + OR -");
+// 	mlx_string_put(e->mlx, e->win, 25, 75, 0x00FFFFFF,
+// 	"Alt = Page up OR Page down");
+// 	mlx_string_put(e->mlx, e->win, 25, 95, 0x00FFFFFF, "Rx = W OR S");
+// 	mlx_string_put(e->mlx, e->win, 25, 115, 0x00FFFFFF, "Ry = A OR D");
+// 	mlx_string_put(e->mlx, e->win, 25, 135, 0x00FFFFFF, "Rz = Q OR E");
+// 	mlx_string_put(e->mlx, e->win, 25, 155, 0x00FFFFFF, "Reset = SPACE");
+// }
+
+void	ft_redraw(t_env *e)
+{
+	mlx_clear_window(e->mlx, e->win);
+	ft_draw_julia(e);
+	mlx_put_image_to_window(e->mlx, e->win, e->img.img_ptr, 0, 0);
+}
+
 
 int		main(int argc, char **argv)
 {

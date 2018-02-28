@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 16:07:07 by mpham             #+#    #+#             */
-/*   Updated: 2018/02/28 14:49:37 by minh             ###   ########.fr       */
+/*   Updated: 2018/02/28 17:48:02 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,22 @@
 # include <string.h>
 # include "mlx.h"
 # include "math3d.h"
+# include <time.h>
 
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
 
 # define EXIT 53
+# define ZOOM_IN 69
+# define ZOOM_OUT 78
+# define MOVE_UP 126
+# define MOVE_DOWN 125
+# define MOVE_RIGHT 124
+# define MOVE_LEFT 123
+# define CIM_UP 13
+# define CIM_DOWN 1
+# define CRE_UP 2
+# define CRE_DOWN 0
 
 // typedef union   u_color;
 // {
@@ -57,10 +68,23 @@ typedef	struct		s_img
 	int				endian;
 }					t_img;
 
-// typedef struct      s_mdb
-// {
-    
-// }                   t_mdb;
+typedef struct      s_mdb
+{
+	double			pr;
+	double			pi;
+    double          new_re;
+    double          new_im;
+    double          old_re;
+    double          old_im;
+    double          zoom;
+    double          movex;
+    double          movey;
+	double			current_time;
+	double			old_time;
+	double			frametime;
+ 	int				max_iter;
+	t_rgb			rgb_color;	    
+}                   t_mdb;
 
 
 typedef struct      s_julia
@@ -74,6 +98,11 @@ typedef struct      s_julia
     double          zoom;
     double          movex;
     double          movey;
+	double			current_time;
+	double			old_time;
+	double			frametime;
+	int				max_iter;
+	t_rgb			rgb_color;
 }                   t_julia;
 
 // typedef struct      s_newton
@@ -97,12 +126,13 @@ typedef	struct		s_env
 	int				color_g;
 	int				color_b;
 	int				fract;
-    // t_mdb           *mdb;
-    // t_julia         *julia;
+    t_mdb           *mdb;
+    t_julia         julia;
     // t_newton        *newton;
 }					t_env;
 
 void				ft_create_image(t_env *e);
+void    			init_julia_set(t_env *e);
 void                ft_draw_julia(t_env *e);
 void    			ft_draw_mandelbrot(t_env *e);
 void 				ft_draw_burnship(t_env *e);
@@ -112,7 +142,12 @@ t_hsv   			rgb2hsv(t_rgb rgb_color);
 t_rgb   			hsv2rgb(t_hsv hsv_color);
 int 				createRGB(int r, int g, int b);
 void				ft_init_img(t_env *e);
-int					key_hook(int keycode, t_env *e);
 void				ft_fill_pixel(t_env *e, int x, int y, int rgb_color);
+int					key_hook(int keycode, t_env *e);
+void				zoom_hook(int keycode, t_env *e);
+void				move_hook(int keycode, t_env *e);
+void				shape_hook(int keycode, t_env *e);
+void				ft_redraw(t_env *e);
+
 
 #endif
