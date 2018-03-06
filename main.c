@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 16:30:47 by minh              #+#    #+#             */
-/*   Updated: 2018/02/28 19:14:05 by minh             ###   ########.fr       */
+/*   Updated: 2018/03/06 19:12:02 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ int     ft_checks_parameters(char **argv, t_env *e)
 		e->fract = 1;
 	else if (ft_strcmp(argv[1], "burnship") == 0)
 		e->fract = 2;
-	else if (ft_strcmp(argv[1], "buddhabrot") == 0)
+	else if (ft_strcmp(argv[1], "tricorn") == 0)
 		e->fract = 3;
+	else if (ft_strcmp(argv[1], "barnsley") == 0)
+		e->fract = 4;
 	else
 	{
-		ft_putendl("usage : ./fractol \"mandelbrot\", \"julia\", \"buddhabrot\"");
+		ft_putendl("usage : ./fractol \"mandelbrot\", \"julia\", \"burnship\", \"tricorn\", \"barnsley\"");
 		return (0);
 	}
 	return (1);
@@ -50,6 +52,15 @@ void		ft_create_image(t_env *e)
 	{
 		init_burnship(e);
 		ft_draw_burnship(e);
+	}
+	if (e->fract == 3)
+	{
+		init_tricorn(e);
+		ft_draw_tricorn(e);
+	}
+	if (e->fract == 4)
+	{
+		ft_draw_barnsley(e);
 	}
 	mlx_put_image_to_window(e->mlx, e->win, e->img.img_ptr, 0, 0);
 }
@@ -83,14 +94,13 @@ void	ft_redraw(t_env *e)
 	mlx_put_image_to_window(e->mlx, e->win, e->img.img_ptr, 0, 0);
 }
 
-
 int		main(int argc, char **argv)
 {
     t_env e;
 
     if (argc != 2)
     {
-    	ft_putendl("usage : ./fractol \"mandelbrot\", \"julia\", \"buddhabrot\"");
+		ft_putendl("usage : ./fractol \"mandelbrot\", \"julia\", \"burnship\", \"tricorn\", \"barnsley\"");
         exit(EXIT_SUCCESS);
     }
     else
@@ -99,6 +109,7 @@ int		main(int argc, char **argv)
     e.win = mlx_new_window(e.mlx, WIN_WIDTH, WIN_HEIGHT, "Fractol");
     ft_create_image(&e);
     mlx_hook(e.win, 2, 0, key_hook, &e);
+	mlx_hook(e.win, 2, 0, mouse_hook, &e);
     mlx_loop(e.mlx);
     return (0);
 }

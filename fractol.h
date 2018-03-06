@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 16:07:07 by mpham             #+#    #+#             */
-/*   Updated: 2018/02/28 19:14:28 by minh             ###   ########.fr       */
+/*   Updated: 2018/03/06 19:24:51 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@
 # define CIM_DOWN 1
 # define CRE_UP 2
 # define CRE_DOWN 0
+# define CLIC_RIGHT 2
+# define CLIC_LEFT 1
 
 typedef	struct		s_rgb
 {
@@ -88,6 +90,10 @@ typedef struct      s_julia
     double          zoom;
     double          movex;
     double          movey;
+	double			re_max;
+	double			re_min;
+	double			im_max;
+	double			im_min;
 	int				max_iter;
 	t_rgb			rgb_color;
 }                   t_julia;
@@ -103,16 +109,18 @@ typedef	struct		s_env
 	double			frametime;
     t_mdb           mdb;
     t_julia         julia;
-    // t_newton        *newton;
 }					t_env;
 
 void				ft_create_image(t_env *e);
 void    			init_julia_set(t_env *e);
 void    			init_mandelbrot(t_env *e);
+void    			init_tricorn(t_env *e);
 void    			init_burnship(t_env *e);
 void                ft_draw_julia(t_env *e);
 void    			ft_draw_mandelbrot(t_env *e);
 void 				ft_draw_burnship(t_env *e);
+void    			ft_draw_tricorn(t_env *e);
+void    			ft_draw_barnsley(t_env *e);
 t_hsv 				ColorHSV(float h, float s, float v);
 t_rgb 				ColorRGB(float r, float g, float b);
 t_hsv   			rgb2hsv(t_rgb rgb_color);
@@ -125,6 +133,8 @@ void				zoom_hook(int keycode, t_env *e);
 void				move_hook(int keycode, t_env *e);
 void				shape_hook(int keycode, t_env *e);
 void				ft_redraw(t_env *e);
-
+double 				interpolate(double start, double end, double interpolation);
+void 				applyZoom(t_env* e, double mouseRe, double mouseIm, double zoomFactor);
+int					mouse_hook(int button, int x, int y, t_env *e);
 
 #endif

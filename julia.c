@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   julia.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 16:31:33 by minh              #+#    #+#             */
-/*   Updated: 2018/02/28 17:39:35 by minh             ###   ########.fr       */
+/*   Updated: 2018/03/06 19:23:14 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ void    init_julia_set(t_env *e)
     e->julia.movey = 0;
     e->julia.max_iter = 300;
     e->julia.c_re = -0.7;
-    e->julia.c_im = 0.27015;  
+    e->julia.c_im = 0.27015;
+    e->julia.re_max = 2.5;
+    e->julia.re_min = -2.5;
+    e->julia.im_max = 1.5;
+    e->julia.im_min = -1.5;
 }
 
 void    ft_draw_julia(t_env *e)
@@ -34,8 +38,8 @@ void    ft_draw_julia(t_env *e)
         y = 0;
         while (y < WIN_HEIGHT)
         {
-            e->julia.new_re = 1.5 * (x - WIN_WIDTH / 2) / (0.5 * e->julia.zoom * WIN_WIDTH) + e->julia.movex;
-            e->julia.new_im = (y - WIN_HEIGHT / 2) / (0.5 * e->julia.zoom * WIN_HEIGHT) + e->julia.movey;
+            e->julia.new_re = e->julia.re_min + ((e->julia.re_max - e->julia.re_min) / WIN_WIDTH * x) + e->julia.movex;
+            e->julia.new_im = e->julia.im_min + ((e->julia.im_max - e->julia.im_min) / WIN_HEIGHT * y) + e->julia.movey;
             i = 0;
             while (i < e->julia.max_iter)   
             {

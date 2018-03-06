@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/13 17:52:47 by minh              #+#    #+#             */
-/*   Updated: 2018/03/06 14:50:01 by mpham            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "fractol.h"
 
-void    init_mandelbrot(t_env *e)
+void    init_tricorn(t_env *e)
 {
     e->mdb.zoom = 1;
     e->mdb.movex = -0.5; 
@@ -20,7 +8,7 @@ void    init_mandelbrot(t_env *e)
     e->mdb.max_iter = 300;
 }
 
-void    ft_draw_mandelbrot(t_env *e)
+void    ft_draw_tricorn(t_env *e)
 {
     int     i;
     int     x;
@@ -41,7 +29,7 @@ void    ft_draw_mandelbrot(t_env *e)
                 e->mdb.old_re = e->mdb.new_re;
                 e->mdb.old_im = e->mdb.new_im;
                 e->mdb.new_re = e->mdb.old_re * e->mdb.old_re - e->mdb.old_im * e->mdb.old_im + e->mdb.pr;
-                e->mdb.new_im = 2 * e->mdb.old_re * e->mdb.old_im + e->mdb.pi;
+                e->mdb.new_im = -2 * e->mdb.old_re * e->mdb.old_im + e->mdb.pi;
                 if ((e->mdb.new_re * e->mdb.new_re + e->mdb.new_im * e->mdb.new_im) > 4)
                     break;
                 i++;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: minh <minh@student.42.fr>                  +#+  +:+       +#+         #
+#    By: mpham <mpham@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 12:55:31 by mpham             #+#    #+#              #
-#    Updated: 2018/02/28 14:35:30 by minh             ###   ########.fr        #
+#    Updated: 2018/03/06 12:08:41 by mpham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,8 @@ SRC = \
 			julia.c \
 			mandelbrot.c \
 			burn_ship.c \
+			tricorn.c \
+			barnsley.c \
 			color.c \
 			events.c
 
