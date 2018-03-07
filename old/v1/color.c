@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 14:46:47 by minh              #+#    #+#             */
-/*   Updated: 2018/03/07 14:19:41 by mpham            ###   ########.fr       */
+/*   Updated: 2018/03/07 10:53:45 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,44 @@ t_rgb ColorRGB(float r, float g, float b)
     rgb_color.b = b;
     return (rgb_color);
 }
+
+// t_hsv   rgb2hsv(t_rgb rgb_color)
+// {
+//     t_hsv   hsv_color;
+//     float   max;
+//     float   min;
+//     float   delta;
+
+//     max = fmax(fmax(rgb_color.r, rgb_color.g), rgb_color.b);
+//     min = fmin(fmin(rgb_color.r, rgb_color.g), rgb_color.b);
+//     delta = max - min;
+//     hsv_color.v = max;
+//     if (max != 0.0)
+//         hsv_color.s = delta / max;
+//     else
+//     {
+//         hsv_color.s = 0;
+//         hsv_color.h = -1;
+//         return ;
+//     }
+//     if(min == max)
+//     {
+//         hsv_color.v = max;
+//         hsv_color.s = 0;
+//         hsv_color.h = -1;
+//         return ;
+//     }
+//     if (rgb_color.r == max)
+//         hsv_color.h = (rgb_color.g - rgb_color.b) / delta;
+//     else if (rgb_color.g == max)
+//         hsv_color.h = 2 + (rgb_color.b - rgb_color.r) / delta;
+//     else if (rgb_color.b == max)
+//         hsv_color.h = 4 + (rgb_color.r - rgb_color.g) / delta;
+//     hsv_color.h *= 60.0;
+//     if (hsv_color.h < 0)
+//         hsv_color.h += 360.0;
+//     return (hsv_color);
+// }
 
 t_rgb   hsv2rgb(t_hsv hsv_color)
 {

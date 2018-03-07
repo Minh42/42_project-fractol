@@ -6,19 +6,11 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 17:52:47 by minh              #+#    #+#             */
-/*   Updated: 2018/03/06 14:50:01 by mpham            ###   ########.fr       */
+/*   Updated: 2018/03/07 16:43:12 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-void    init_mandelbrot(t_env *e)
-{
-    e->mdb.zoom = 1;
-    e->mdb.movex = -0.5; 
-    e->mdb.movey = 0;
-    e->mdb.max_iter = 300;
-}
 
 void    ft_draw_mandelbrot(t_env *e)
 {
@@ -32,11 +24,11 @@ void    ft_draw_mandelbrot(t_env *e)
         y = 0;
         while (y < WIN_HEIGHT)
         {
-            e->mdb.pr = 1.5 * (x - WIN_WIDTH / 2) / (0.5 * e->mdb.zoom * WIN_WIDTH) + e->mdb.movex;
-            e->mdb.pi = (y - WIN_HEIGHT / 2) / (0.5 * e->mdb.zoom * WIN_HEIGHT) + e->mdb.movey;
+            e->mdb.pr = e->re_min + ((e->re_max - e->re_min) / WIN_WIDTH * x) + e->movex;
+            e->mdb.pi = e->im_min + ((e->im_max - e->im_min) / WIN_HEIGHT * y) + e->movey;
             e->mdb.new_re = e->mdb.new_im = e->mdb.old_re = e->mdb.old_im = 0;
             i = 0;
-            while (i < e->mdb.max_iter)
+            while (i < e->max_iter)
             {
                 e->mdb.old_re = e->mdb.new_re;
                 e->mdb.old_im = e->mdb.new_im;
@@ -46,7 +38,11 @@ void    ft_draw_mandelbrot(t_env *e)
                     break;
                 i++;
             }
-            e->mdb.rgb_color = hsv2rgb(ColorHSV(i % 256, 1.0, i < e->mdb.max_iter));
+            if (e->color > 256)
+                e->color -= 256;
+            if (e->color < 0)
+                e->color += 256;
+            e->mdb.rgb_color = hsv2rgb(ColorHSV(i % 256 + e->color, 1.0, i < e->max_iter));
             ft_fill_pixel(e, x, y, createRGB(e->mdb.rgb_color.r, e->mdb.rgb_color.g, e->mdb.rgb_color.b));               
             y++;
         }

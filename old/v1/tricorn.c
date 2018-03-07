@@ -26,11 +26,7 @@ void    ft_draw_tricorn(t_env *e)
                     break;
                 i++;
             }
-            if (e->color > 256)
-                e->color -= 256;
-            if (e->color < 0)
-                e->color += 256;
-            e->mdb.rgb_color = hsv2rgb(ColorHSV(i % 256 + e->color, 1.0, i < e->max_iter));
+            e->mdb.rgb_color = hsv2rgb(ColorHSV(i % 256, 1.0, i < e->max_iter));
             ft_fill_pixel(e, x, y, createRGB(e->mdb.rgb_color.r, e->mdb.rgb_color.g, e->mdb.rgb_color.b));               
             y++;
         }

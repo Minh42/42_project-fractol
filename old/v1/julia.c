@@ -6,17 +6,11 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 16:31:33 by minh              #+#    #+#             */
-/*   Updated: 2018/03/07 16:20:14 by mpham            ###   ########.fr       */
+/*   Updated: 2018/03/07 10:45:45 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-void    init_julia_set(t_env *e)
-{
-    e->julia.c_re = -0.7;
-    e->julia.c_im = 0.27015;
-}
 
 void    ft_draw_julia(t_env *e)
 {
@@ -24,6 +18,8 @@ void    ft_draw_julia(t_env *e)
     int     x;
     int     y;
     
+    e->julia.c_re = -0.7;
+    e->julia.c_im = 0.27015;
     x = 0;
     while (x < WIN_WIDTH)
     {
@@ -43,11 +39,7 @@ void    ft_draw_julia(t_env *e)
                     break ;
                 i++;
             }
-            if (e->color > 256)
-                e->color -= 256;
-            if (e->color < 0)
-                e->color += 256;
-            e->julia.rgb_color = hsv2rgb(ColorHSV(i % 256 + e->color, 1, i < e->max_iter));
+            e->julia.rgb_color = hsv2rgb(ColorHSV(i % 256, 1.0, i < e->max_iter));
             ft_fill_pixel(e, x, y, createRGB(e->julia.rgb_color.r, e->julia.rgb_color.g, e->julia.rgb_color.b));
             y++;
         }

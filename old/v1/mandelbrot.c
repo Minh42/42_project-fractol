@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   burn_ship.c                                        :+:      :+:    :+:   */
+/*   mandelbrot.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/06 14:49:22 by mpham             #+#    #+#             */
-/*   Updated: 2018/03/07 16:44:33 by mpham            ###   ########.fr       */
+/*   Created: 2018/02/13 17:52:47 by minh              #+#    #+#             */
+/*   Updated: 2018/03/07 10:46:14 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void    ft_draw_burnship(t_env *e)
+void    ft_draw_mandelbrot(t_env *e)
 {
     int     i;
     int     x;
@@ -32,17 +32,13 @@ void    ft_draw_burnship(t_env *e)
             {
                 e->mdb.old_re = e->mdb.new_re;
                 e->mdb.old_im = e->mdb.new_im;
-                e->mdb.new_re = ft_abs(e->mdb.old_re * e->mdb.old_re - e->mdb.old_im * e->mdb.old_im + e->mdb.pr);
-                e->mdb.new_im = ft_abs(2 * e->mdb.old_re * e->mdb.old_im + e->mdb.pi);
+                e->mdb.new_re = e->mdb.old_re * e->mdb.old_re - e->mdb.old_im * e->mdb.old_im + e->mdb.pr;
+                e->mdb.new_im = 2 * e->mdb.old_re * e->mdb.old_im + e->mdb.pi;
                 if ((e->mdb.new_re * e->mdb.new_re + e->mdb.new_im * e->mdb.new_im) > 4)
                     break;
                 i++;
             }
-            if (e->color > 256)
-                e->color -= 256;
-            if (e->color < 0)
-                e->color += 256;
-            e->mdb.rgb_color = hsv2rgb(ColorHSV(i % 256 + e->color, 1.0, i < e->max_iter));
+            e->mdb.rgb_color = hsv2rgb(ColorHSV(i % 256, 1.0, i < e->max_iter));
             ft_fill_pixel(e, x, y, createRGB(e->mdb.rgb_color.r, e->mdb.rgb_color.g, e->mdb.rgb_color.b));               
             y++;
         }

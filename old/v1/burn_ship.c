@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 14:49:22 by mpham             #+#    #+#             */
-/*   Updated: 2018/03/07 16:44:33 by mpham            ###   ########.fr       */
+/*   Updated: 2018/03/07 10:47:44 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,7 @@ void    ft_draw_burnship(t_env *e)
                     break;
                 i++;
             }
-            if (e->color > 256)
-                e->color -= 256;
-            if (e->color < 0)
-                e->color += 256;
-            e->mdb.rgb_color = hsv2rgb(ColorHSV(i % 256 + e->color, 1.0, i < e->max_iter));
+            e->mdb.rgb_color = hsv2rgb(ColorHSV(i % 256, 1.0, i < e->max_iter));
             ft_fill_pixel(e, x, y, createRGB(e->mdb.rgb_color.r, e->mdb.rgb_color.g, e->mdb.rgb_color.b));               
             y++;
         }
