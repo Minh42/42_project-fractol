@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buddhabrot.c                                       :+:      :+:    :+:   */
+/*   burn_ship.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/07 17:52:09 by mpham             #+#    #+#             */
-/*   Updated: 2018/03/07 17:56:27 by mpham            ###   ########.fr       */
+/*   Created: 2018/03/06 14:49:22 by mpham             #+#    #+#             */
+/*   Updated: 2018/03/07 16:44:33 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void    ft_draw_buddhabrot(t_env *e)
+void    ft_draw_burnship(t_env *e)
 {
     int     i;
     int     x;
     int     y;
-
+    
     x = 0;
     while (x < WIN_WIDTH)
     {
@@ -32,8 +32,8 @@ void    ft_draw_buddhabrot(t_env *e)
             {
                 e->mdb.old_re = e->mdb.new_re;
                 e->mdb.old_im = e->mdb.new_im;
-                e->mdb.new_re = e->mdb.old_re * e->mdb.old_re - e->mdb.old_im * e->mdb.old_im + e->mdb.pr;
-                e->mdb.new_im = 2 * e->mdb.old_re * e->mdb.old_im + e->mdb.pi;
+                e->mdb.new_re = ft_abs(e->mdb.old_re * e->mdb.old_re - e->mdb.old_im * e->mdb.old_im + e->mdb.pr);
+                e->mdb.new_im = ft_abs(2 * e->mdb.old_re * e->mdb.old_im + e->mdb.pi);
                 if ((e->mdb.new_re * e->mdb.new_re + e->mdb.new_im * e->mdb.new_im) > 4)
                     break;
                 i++;

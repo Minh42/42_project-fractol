@@ -6,7 +6,7 @@
 #    By: mpham <mpham@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 12:55:31 by mpham             #+#    #+#              #
-#    Updated: 2018/03/07 17:17:33 by mpham            ###   ########.fr        #
+#    Updated: 2018/03/07 17:24:57 by mpham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRC = \
 			main.c \
 			julia.c \
 			mandelbrot.c \
-			burn_ship.c \
+			burnship.c \
 			tricorn.c \
 			barnsley.c \
 			color.c \
